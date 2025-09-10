@@ -32,10 +32,10 @@ PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'roben-joseph-footballnews.pbp.cs.ui.ac.id']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'https://roben-joseph-footballnews.pbp.cs.ui.ac.id']
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://roben-joseph-footballnews.pbp.cs.ui.ac.id"
+    'https://roben-joseph-footballnews.pbp.cs.ui.ac.id'
 ]
 
 # Application definition
