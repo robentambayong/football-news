@@ -30,9 +30,9 @@ SECRET_KEY = 'django-insecure-aruki8rl^h&#_4^io-@_60hgdjr!t0n0nml%&9-hugzf0%lob4
 PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'roben-joseph-footballnews.pbp.cs.ui.ac.id']
 
 CSRF_TRUSTED_ORIGINS = [
     "https://roben-joseph-footballnews.pbp.cs.ui.ac.id"
