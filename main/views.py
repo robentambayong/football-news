@@ -12,6 +12,27 @@ from django.shortcuts import render, redirect, get_object_or_404
 from main.forms import NewsForm
 from main.models import News
 
+def delete_news(request, id):
+    news = get_object_or_404(News, pk=id)
+    news.delete()
+    return HttpResponseRedirect(reverse('main:show_main'))
+
+#--------
+
+def edit_news(request, id):
+    news = get_object_or_404(News, pk=id)
+    form = NewsForm(request.POST or None, instance=news)
+    
+    if form.is_valid() and request.method == 'POST':
+        form.save()
+        return redirect('main:show_main')
+
+    context = {
+        'form': form
+    }
+
+    return render(request, "edit_news.html", context)
+
 #--------
 
 def logout_user(request):
@@ -36,7 +57,7 @@ def login_user(request):
    else:
       form = AuthenticationForm(request)
    context = {'form': form}
-   return render(request, 'main/login.html', context)
+   return render(request, 'login.html', context)
 
 #--------
 
@@ -50,7 +71,7 @@ def register(request):
             messages.success(request, 'Your account has been successfully created!')
             return redirect('main:login')
     context = {'form':form}
-    return render(request, 'main/register.html', context)
+    return render(request, 'register.html', context)
 
 #--------
 
@@ -78,13 +99,13 @@ def show_main(request):
 
     context = {
         'npm' : '2406453594',
-        'name': 'Roben Joseph B Tambayong',
+        'name': request.user.username,
         'class': 'KKI',
         'news_list': news_list,
         'last_login': request.COOKIES.get('last_login', 'Never')
     }
 
-    return render(request, "main/main.html", context)
+    return render(request, "main.html", context)
 
 def create_news(request):
     form = NewsForm(request.POST or None)
@@ -99,7 +120,7 @@ def create_news(request):
         'form': form
     }
 
-    return render(request, "main/create_news.html", context)
+    return render(request, "create_news.html", context)
 
 @login_required(login_url='/login')
 def show_news(request, id):
@@ -110,7 +131,7 @@ def show_news(request, id):
         'news': news
     }
 
-    return render(request, "main/news_detail.html", context)
+    return render(request, "news_detail.html", context)
 
 # XML by ID
 def show_xml_by_id(request, news_id):
